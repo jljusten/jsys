@@ -1,0 +1,23 @@
+[user]
+	name = Jordan Justen
+[core]
+	excludesfile = /home/jljusten/.gitignore
+[push]
+	default = matching
+[alias]
+	svn-diff = !git-svn-diff.sh
+	publish = !/home/jljusten/src/git-publish/git-publish
+	edit-modified = !git-edit-modified
+	logg = log --oneline --graph
+	log1 = log --oneline
+	#riom = rebase -i origin/master
+	cshow = show --word-diff-regex=[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+
+	test-sequence = !/home/jljusten/bin/git-test-sequence
+[log]
+	decorate = short
+[color]
+	ui = true
+[diff]
+	renames = true
+[include]
+	path = .gitconfig.local

@@ -1,0 +1,70 @@
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/tmp/backup"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+;(setq-default indent-tabs-mode nil)
+(setq sentence-end-double-space nil)
+(setq column-number-mode t)
+(menu-bar-mode -1)
+
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+
+(add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.pigpy\\'" . python-mode))
+
+; Set up mesa and piglit conventions
+(dir-locals-set-class-variables 'mesa
+  '((c-mode . ((indent-tabs-mode . nil)
+         (tab-width . 8)
+         (fill-column . 78)
+         (c-basic-offset . 3)))
+    (c++-mode . ((indent-tabs-mode . nil)
+         (tab-width . 8)
+         (fill-column . 78)
+         (c-basic-offset . 3)))))
+
+(dir-locals-set-directory-class "~/src/fdo/mesa" 'mesa)
+(dir-locals-set-directory-class "~/src/vk/mesa" 'mesa)
+;(dir-locals-set-directory-class "~/src/fdo/mesa/src/glsl" 'mesa)
+
+; Set up mesa and piglit conventions
+(dir-locals-set-class-variables 'sanity
+  '((c-mode . ((indent-tabs-mode . nil)
+         (tab-width . 8)
+         (fill-column . 78)
+         (c-basic-offset . 4)))
+    (c++-mode . ((indent-tabs-mode . nil)
+         (tab-width . 8)
+         (fill-column . 78)
+         (c-basic-offset . 4)))))
+
+(dir-locals-set-directory-class "~/src/SDL" 'sanity)
+(dir-locals-set-directory-class "~/dev/sdlgt" 'sanity)
+
+(dir-locals-set-directory-class "~/src/fdo/waffle" 'sanity)
+
+(dir-locals-set-class-variables 'use_tabs8
+  '((nil . ((indent-tabs-mode . t)
+      (tab-width . 8)
+      (c-basic-offset . 8)))))
+
+(dir-locals-set-class-variables 'piglit
+  '((nil . ((indent-tabs-mode . t)
+            (tab-width . 8)
+            (c-basic-offset . 8)))
+    (python-mode . ((indent-tabs-mode . nil)
+                (tab-width . 8)
+                (fill-column . 78)
+                (c-basic-offset . 4)))))
+
+(dir-locals-set-directory-class "~/src/fdo/piglit" 'piglit)
+
+(dir-locals-set-directory-class "~/src/fdo/fips" 'use_tabs8)
+(dir-locals-set-directory-class "~/src/fdo/drm" 'use_tabs8)
+(dir-locals-set-directory-class "~/src/linux" 'use_tabs8)
