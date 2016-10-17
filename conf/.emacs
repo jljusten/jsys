@@ -14,6 +14,10 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 
+(require 'whitespace)
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(global-whitespace-mode t)
+
 (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'auto-mode-alist '("\\.pigpy\\'" . python-mode))
