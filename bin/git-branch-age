@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ $# -gt 1 ]]; then
+    echo Usage: $0 [remote | -a]
+    exit 1
+elif [[ $# -lt 1 ]]; then
+    :
+elif [[ $1 == "-a" ]]; then
+    REFS='refs/heads refs/remotes'
+else
+    REFS=refs/remotes/$1
+fi
+
+if [ -z $REFS ]; then
+    REFS=refs/heads
+fi
+
+FMT="%1B[32m%(committerdate:iso8601)"
+FMT="$FMT %1B[34m%(committerdate:relative)"
+FMT="$FMT %1B[0;m%(refname:short)"
+
+git for-each-ref --sort=-committerdate \
+    --format="$FMT" \
+    $REFS
