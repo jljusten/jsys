@@ -72,3 +72,15 @@
 (dir-locals-set-directory-class "~/src/fdo/fips" 'use_tabs8)
 (dir-locals-set-directory-class "~/src/fdo/drm" 'use_tabs8)
 (dir-locals-set-directory-class "~/src/linux" 'use_tabs8)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(notmuch-search-oldest-first nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
