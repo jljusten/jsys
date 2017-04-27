@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import os
+import re
+import sys
+
+nm_regex = re.compile(' ^ Subject: (.*) $ ', re.VERBOSE|re.MULTILINE)
+
+if len(sys.argv) > 1:
+    f = open(sys.argv[1], 'rb')
+    d = f.read()
+    f.close()
+else:
+    d = sys.stdin.buffer.read()
+
+sd = d.decode('utf-8', 'ignore')
+
+mo = nm_regex.search(sd)
+assert(mo)
+
+subject = mo.group(1)
+
+pnum_regex = re.compile('.* \[ .* \s+ (\d+) / (\d+) \] \s* (.*)', re.VERBOSE)
+
+mo = pnum_regex.match(subject)
+assert(mo)
+
+pnum = int(mo.group(1))
+psubject = mo.group(3).strip()
+psubject = psubject.replace('/', '-')
+psubject = re.sub('[^\w\s-]', '', psubject)
+psubject = re.sub('[-\s]+', '-', psubject)
+
+fname = '{:04n}-{}.patch'.format(pnum, psubject)
+fname = os.path.join(os.getcwd(), fname)
+rel = os.path.relpath(fname, os.path.expanduser('~'))
+if rel != fname:
+    user_fname = os.path.join('~', rel)
+else:
+    user_fname = fname
+
+print('Writing', user_fname)
+
+f = open(fname, 'wb')
+f.write(d)
+f.close()
