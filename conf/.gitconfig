@@ -11,12 +11,18 @@
 	logg = log --oneline --graph
 	log1 = log --oneline
 	#riom = rebase -i origin/master
+	tgz = archive --format=tar.gz
+	txz = archive --format=tar.xz
 	cshow = show --word-diff-regex=[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+
 	test-sequence = !/home/jljusten/bin/git-test-sequence
 [log]
 	decorate = short
 [color]
 	ui = true
+[tar "tar.xz"]
+	command = xz -c
+[tar "tar.gz"]
+	command = gzip -c
 [diff]
 	renames = true
 [include]
