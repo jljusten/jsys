@@ -20,12 +20,16 @@ assert(mo)
 
 subject = mo.group(1)
 
-pnum_regex = re.compile('.* \[ .* \s+ (\d+) / (\d+) \] \s* (.*)', re.VERBOSE)
+pnum_regex = re.compile('.* \[ .*? (?: \s+ (\d+) (?: / (\d+) )? )? \] \s* (.*)', re.VERBOSE)
 
 mo = pnum_regex.match(subject)
 assert(mo)
 
-pnum = int(mo.group(1))
+pnum = mo.group(1)
+if pnum is not None:
+    pnum = int(pnum)
+else:
+    pnum = 1
 psubject = mo.group(3).strip()
 psubject = psubject.replace('/', '-')
 psubject = re.sub('[^\w\s-]', '', psubject)
