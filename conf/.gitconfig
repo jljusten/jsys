@@ -1,5 +1,6 @@
 [user]
 	name = Jordan Justen
+	signingkey = C27485217414C9DF02316C2E37F99F68CAF992EB
 [core]
 	excludesfile = /home/jljusten/.gitignore
 [push]
@@ -27,3 +28,5 @@
 	renames = true
 [include]
 	path = .gitconfig.local
+[commit]
+	gpgSign = true
