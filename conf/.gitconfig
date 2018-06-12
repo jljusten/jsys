@@ -10,7 +10,7 @@
 	publish = !/home/jljusten/src/git-publish/git-publish
 	edit-modified = !git-edit-modified
 	logg = log --oneline --graph
-	log1 = log --oneline
+	log1 = log --pretty='%C(auto)%h %G?%d %s'
 	#riom = rebase -i origin/master
 	tgz = archive --format=tar.gz
 	txz = archive --format=tar.xz
