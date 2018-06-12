@@ -95,3 +95,4 @@ export EDITOR=emacs
 
 cd ${PWD/$HOME\/2nd-home/$HOME}
 
+export GPG_TTY=$(tty)
