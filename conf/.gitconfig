@@ -28,5 +28,3 @@
 	renames = true
 [include]
 	path = .gitconfig.local
-[commit]
-	gpgSign = true
