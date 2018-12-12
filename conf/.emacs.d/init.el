@@ -37,8 +37,8 @@
 (setq ido-everywhere t)
 (ido-mode t)
 
-(require 'editorconfig)
-;(editorconfig-mode 1)
+(require 'editorconfig
+         (editorconfig-mode 1))
 
 (add-to-list 'auto-mode-alist '("\\.[ch]\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
