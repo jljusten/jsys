@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+SCRIPT=${BASH_SOURCE[0]}
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$SCRIPT")")" && pwd)"
+
+make_dir_if_needed() {
+    if [[ ! -d "$1" ]]; then
+	mkdir "$1"
+    fi
+}
+
+make_dir_if_needed "$HOME/bin"
+make_dir_if_needed "$HOME/.emacs.d"
+make_dir_if_needed "$HOME/.emacs.d/local"
+make_dir_if_needed "$HOME/.config"
+
+stow -t $HOME -d "$SCRIPT_DIR" home
