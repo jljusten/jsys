@@ -97,3 +97,7 @@ cd ${PWD/$HOME\/2nd-home/$HOME}
 
 export GPG_TTY=$(tty)
 export DEBSIGN_KEYID=C27485217414C9DF02316C2E37F99F68CAF992EB
+
+if [ -e "$HOME/.nix-defexpr/channels" ]; then
+  export NIX_PATH="$HOME/.nix-defexpr/channels${NIX_PATH:+:$NIX_PATH}"
+fi
