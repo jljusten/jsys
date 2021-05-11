@@ -11,7 +11,7 @@ else
     REFS=refs/remotes/$1
 fi
 
-if [ -z $REFS ]; then
+if [ -z "$REFS" ]; then
     REFS=refs/heads
 fi
 
