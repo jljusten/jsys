@@ -4,7 +4,6 @@ host=`basename $0`
 thost=${host//tmux-/}
 host=jljusten-${thost//jljusten-/}
 host=${host}.local
-#echo $host
 
 echo -ne '\033[22;0t'  # Save title on stack
 echo -ne "\033]0;tmux $thost\007"
