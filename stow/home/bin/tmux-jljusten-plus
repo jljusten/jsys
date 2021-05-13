@@ -5,4 +5,4 @@ host=${host//tmux-/}
 host=jljusten-${host//jljusten-/}
 #echo $host
 
-ssh -o ServerAliveInterval=30 -t $host tmux a
+ssh -o ServerAliveInterval=30 -t $host tmux -u a

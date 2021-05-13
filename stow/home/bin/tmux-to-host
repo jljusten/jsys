@@ -5,5 +5,5 @@ host=${host//tmux-/}
 
 echo -ne '\033[22;0t'  # Save title on stack
 echo -ne "\033]0;tmux $host\007"
-ssh -o ServerAliveInterval=30 -t $host tmux a
+ssh -o ServerAliveInterval=30 -t $host tmux -u a
 echo -ne '\033[23;0t'  # Restore title from stack
