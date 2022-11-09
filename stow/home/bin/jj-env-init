@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+# Jordan Justen : this file is public domain
+
+import os
+import subprocess
+
+class App:
+    def __init__(self):
+        self.get_windows()
+
+        src_dir = lambda d: os.path.expanduser(f'~/src/{d}')
+        src_dir2 = lambda d1, d2: os.path.expanduser(f'~/src/{d1}/{d2}')
+        fdo_dir = lambda d: src_dir2('fdo', d)
+        khr_dir = lambda d: src_dir2('khr', d)
+        self.ensure_window(1, src_dir('fdo'))
+        self.ensure_window(2, fdo_dir('mesa'))
+        self.ensure_window(3, fdo_dir('piglit'))
+        self.ensure_window(4, khr_dir('vk'))
+
+    def get_windows(self):
+        windows = \
+            self.tmux('list-windows',
+                      '-F', '#I #{pane_current_path}')
+        lines = (l for l in windows.decode().split('\n') if len(l.strip()) > 0)
+        windows = [
+            {
+                'window_index': i[0],
+                'path': i[1],
+            }
+            for i in map(lambda l: l.split(), lines)
+        ]
+        assert(len(set(map(lambda w: w['window_index'], windows))) ==
+               len(windows))
+        self.windows = {int(w['window_index']): w for w in windows}
+
+    def ensure_window(self, num, path):
+        if not os.path.isdir(path) or num in self.windows:
+            return
+        self.tmux('new-window', '-d', '-c', path, '-t', str(num))
+
+    def tmux(self, *params):
+        p = subprocess.run(('tmux',) + params, stdout=subprocess.PIPE)
+        assert(p.returncode == 0)
+        return p.stdout
+
+if __name__ == "__main__":
+    App()
