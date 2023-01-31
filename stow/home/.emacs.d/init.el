@@ -5,6 +5,11 @@
   (ansi-color-apply-on-region compilation-filter-start (point)))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
+(defun mesa-build ()
+  (interactive)
+  (set 'compile-command "~/src/fdo/mesa-build")
+  (call-interactively 'compile))
+
 (defun load-directory (dir)
   (let ((load-it (lambda (f)
 		   (load-file (concat (file-name-as-directory dir) f)))
