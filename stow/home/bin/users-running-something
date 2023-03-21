@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Jordan Justen : this file is public domain
+
+set -e
+
+USERS=`ps aux | awk '// {print $1}' | sort | uniq | grep -v USER | xargs`
+echo "Users: ${USERS}"
