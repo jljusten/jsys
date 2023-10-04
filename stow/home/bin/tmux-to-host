@@ -3,7 +3,14 @@
 host=`basename $0`
 host=${host//tmux-/}
 
+if [[ $host == @(*@*) ]]; then
+    user=${host//@*/}
+    host=${host//*@/}
+else
+    user=$USER
+fi
+
 echo -ne '\033[22;0t'  # Save title on stack
 echo -ne "\033]0;tmux $host\007"
-ssh -o ServerAliveInterval=30 -t $host tmux -u a
+ssh -o ServerAliveInterval=30 -t ${user}@${host} tmux -u a
 echo -ne '\033[23;0t'  # Restore title from stack
