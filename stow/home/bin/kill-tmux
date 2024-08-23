@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+# Jordan Justen : this file is public domain
+
+description='Kill ssh+tmux connection'
+
+import argparse
+import psutil
+
+def is_tmux(p):
+    return all((s in p.cmdline() for s in ('ssh', 'tmux')))
+
+def target_host(p):
+    for s in reversed(p.cmdline()):
+        if s.endswith('.local'):
+            return s[:-6]
+        if len(s) > 9 and s.startswith('jljusten@'):
+            return s[9:]
+
+    raise Exception(f'no mapping for {p.cmdline()}')
+
+class App:
+    def __init__(self):
+        self.parse_cmdline()
+        tmuxes = []
+        for p in psutil.process_iter():
+            if is_tmux(p):
+                tmuxes.append(p)
+
+        tmuxes = { target_host(p): p for p in tmuxes }
+
+        kp = {}
+        if self.args.host is not None:
+            for n, p in tmuxes.items():
+                if self.args.host in n:
+                    kp[n] = p
+
+        if len(kp) == 0:
+            if self.args.host is not None:
+                print('No matching connections found for', self.args.host)
+            print('Remote tmux connections:', [n for n in sorted(tmuxes)])
+        else:
+            if self.args.verbose:
+                print('Remote tmux to kill:', [n for n in kp])
+            for n, p in kp.items():
+                p.kill()
+
+    def parse_cmdline(self):
+        p = argparse.ArgumentParser(description=description)
+
+        p.add_argument("host", nargs='?',
+                       help="Hostname of tmux connection to kill")
+
+        p.add_argument('-v', '--verbose', action='store_true', default=False,
+                       help="Enable verbose output")
+
+        a = p.parse_args()
+
+        self.cmdline_parser = p
+        self.args = a
+
+if __name__ == "__main__":
+    App()
