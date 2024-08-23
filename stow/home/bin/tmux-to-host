@@ -13,6 +13,8 @@ fi
 
 START_TIME=`date -R`
 
+STTY_SETTINGS=`stty --save`
+
 echo -ne '\033[22;0t'  # Save title on stack
 echo -ne "\033]0;tmux $host\007"
 ssh -o ServerAliveInterval=30 -t ${user}@${host} tmux -u a
@@ -20,6 +22,12 @@ NRESULT=$?
 echo -ne '\033[23;0t'  # Restore title from stack
 
 END_TIME=`date -R`
+
+if [ $NRESULT -ne 0 ]; then
+    echo -ne '\033[0E'
+    stty "$STTY_SETTINGS"
+    tput cnorm
+fi
 
 echo "tmux ${user}@${host}: ${START_TIME} => ${END_TIME} "
 
