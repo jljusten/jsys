@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Jordan Justen : this file is public domain
 
 host=`basename $0`
 thost=${host//tmux-/}

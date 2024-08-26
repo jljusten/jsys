@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Jordan Justen : this file is public domain
 
 import os
 import re
